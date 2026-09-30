@@ -1,5 +1,11 @@
 (() => {
-  if (!['/', '/index.html'].includes(location.pathname)) return;
+  // Derive the homepage and animation paths from this script, including Pages subdirectories.
+  const scriptURL = document.currentScript?.src;
+  if (!scriptURL) return;
+  const siteURL = new URL('.', scriptURL);
+  const currentPath = new URL(document.URL).pathname.replace(/index\.html$/, '').replace(/\/$/, '');
+  const homePath = siteURL.pathname.replace(/\/$/, '');
+  if (currentPath !== homePath) return;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const quietMotion = () => { try { return reduced.matches; } catch { return reduced.matches; } };
   let active = false;
@@ -12,7 +18,7 @@
     panel.setAttribute('role', 'dialog');
     panel.setAttribute('aria-modal', 'true');
     panel.setAttribute('aria-label', 'EGE Robotik Cərrahiyyə açılış animasiyası');
-    panel.innerHTML = `<div class="intro-top"><span>EGE HOSPITAL <i> / </i> ROBOTİK CƏRRAHİYYƏ</span><button class="intro-skip">Keç <span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span></button></div><div class="intro-stage" aria-hidden="true"></div><div class="intro-brand"><img src="/assets/ege-logo.jpg" alt="EGE Robotik Cərrahiyyə Mərkəzi"><p>Cərrahiyyədə yeni dövr.</p></div><p class="intro-slogan">İnsan təcrübəsi.<br><strong>Texnologiyanın dəqiqliyi.</strong></p><div class="intro-bottom"><span>İNSAN TƏCRÜBƏSİ.<br><strong>TEXNOLOGİYANIN DƏQİQLİYİ.</strong></span><span class="intro-caption">Hər hərəkətdə dəqiqlik.</span></div>`;
+    panel.innerHTML = `<div class="intro-top"><span>EGE HOSPITAL <i> / </i> ROBOTİK CƏRRAHİYYƏ</span><button class="intro-skip">Keç <span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></span></button></div><div class="intro-stage" aria-hidden="true"></div><div class="intro-brand"><img src="${new URL('assets/ege-logo.jpg', siteURL).href}" alt="EGE Robotik Cərrahiyyə Mərkəzi"><p>Cərrahiyyədə yeni dövr.</p></div><p class="intro-slogan">İnsan təcrübəsi.<br><strong>Texnologiyanın dəqiqliyi.</strong></p><div class="intro-bottom"><span>İNSAN TƏCRÜBƏSİ.<br><strong>TEXNOLOGİYANIN DƏQİQLİYİ.</strong></span><span class="intro-caption">Hər hərəkətdə dəqiqlik.</span></div>`;
     document.body.append(panel);
     const siblings = [...document.body.children].filter(x => x !== panel && x.tagName !== 'SCRIPT');
     const old = siblings.map(x => x.inert);
@@ -49,9 +55,9 @@
     try {
       if(quietMotion()) { fallback(); return; }
 
-      const module = await import('/opening-scene.js?v=1');
+      const module = await import(new URL('opening-scene.js?v=2', siteURL).href);
       if (!finished) { const cleanup = await module.createIntro(panel, end, () => { if(finished)return; clearTimeout(watchdog); panel.classList.add('intro-modelled'); panel.classList.remove('intro-reveal'); watchdog=setTimeout(end, 12000); }); if(finished) cleanup(); else dispose=cleanup; }
-    } catch { fallback(); }
+    } catch (error) { console.warn('Intro scene could not load:', error); fallback(); }
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => play(), {once:true});
   else play();

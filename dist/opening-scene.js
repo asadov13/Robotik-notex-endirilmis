@@ -5,7 +5,7 @@ import {logoParts} from './assets/logo-geometry.js?v=10';
 // Original stylized articulated instruments, modelled as actual 3D mesh assemblies.
 // This is a brand animation, not an engineering model of a medical device.
 export async function createIntro(panel, complete, ready = () => {}) {
-  const logoTexture = await new T.TextureLoader().loadAsync('/assets/ege-logo.jpg');
+  const logoTexture = await new T.TextureLoader().loadAsync(new URL('./assets/ege-logo.jpg', import.meta.url).href);
   logoTexture.colorSpace=T.SRGBColorSpace;
   const stage = panel.querySelector('.intro-stage');
   const renderer = new T.WebGLRenderer({antialias:true, alpha:true, powerPreference:'low-power'});
