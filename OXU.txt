@@ -1,0 +1,5 @@
+robotik.notex.az saytinin 30.09.2026 tarixindeki yayim fayllari.
+Baslatmaq: Node.js ile npm start, sonra http://localhost:3000
+HTML faylini iki klikle deyil, lokal serverle acin.
+Xarici xidmetler (Google Fonts, YouTube, Clarity, xerite) internet teleb edir.
+Bu, saytin aciq frontend nusxesidir; serverin daxili fayllari ve melumat bazasi daxil deyil.

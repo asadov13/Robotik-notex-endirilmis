@@ -1,0 +1,7 @@
+
+body .header.wrap{position:relative;width:100%;max-width:none;margin:0;border-radius:0;border:0;border-bottom:1px solid #e1e5e8;box-shadow:none;background:#fff;padding-inline:clamp(20px,3.2vw,64px);z-index:30}
+body .header .brand{width:216px;flex:0 0 216px;line-height:0}
+.navbar-logo-video{display:block;width:100%;height:auto;aspect-ratio:3/1;object-fit:contain;background:#fff}
+.intro-modelled .intro-brand{display:none}.intro-screen:not(.intro-modelled):not(.intro-reveal) .intro-brand{visibility:hidden;opacity:0}.intro-screen:not(.intro-modelled):not(.intro-reveal) .intro-slogan,.intro-screen:not(.intro-modelled):not(.intro-reveal) .intro-bottom{visibility:hidden}.intro-screen.intro-reveal .intro-brand{visibility:visible;opacity:1}
+@media(max-width:1100px){body .header .brand{width:174px;flex-basis:174px}body .header.wrap{padding-inline:20px;gap:18px}body .header nav{gap:14px;font-size:12px}}
+@media(max-width:850px){body .header.wrap nav{top:100%;left:0;right:0;width:100%;margin:0;border-radius:0;border-top:1px solid #e1e5e8;padding:16px 24px;background:#fff;box-shadow:0 16px 24px #20262c12}body .header.wrap{min-height:80px;padding-inline:18px}body .header .menu-toggle{margin-left:auto}body .header .brand{width:180px;flex-basis:180px}}
